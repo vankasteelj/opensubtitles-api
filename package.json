@@ -1,0 +1,31 @@
+{
+    "name": "opensubtitles-wrapper",
+    "version": "1.0.0",
+    "description": "nodejs opensubtitles.org api wrapper for downloading and uploading subtitles in multiple langs",
+    "author": {
+        "name": "vankasteelj",
+        "email": "vankasteelj@gmail.com"
+    },
+    "main": "index.js",
+    "license": "GPL-3.0",
+    "keywords": [
+        "opensubtitles",
+        "subtitles",
+        "api",
+        "wrapper",
+        "srt"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/vankasteelj/opensubtitles-wrapper.git"
+    },
+    "dependencies": {
+        "bluebird": "2.x.x",
+        "lodash": "3.x.x",
+        "xmlrpc": "1.x.x",
+        "URIjs": "1.x.x"
+    },
+    "scripts": {
+        "test": "node tests.js"
+    }
+}
