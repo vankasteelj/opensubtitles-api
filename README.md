@@ -1,4 +1,4 @@
-# opensubtitles-wrapper
+# opensubtitles-api
 
 **[OpenSubtitles.org](http://www.opensubtitles.org/) api wrapper for downloading and uploading subtitles, written in NodeJS.**
 
@@ -20,12 +20,12 @@ In addition of allowing to use all available methodCalls asynchronously, it also
 
 ## Quick start
 
-    npm install opensubtitles-wrapper
+    npm install opensubtitles-api
 
 Then:
 
 ```js
-var OS = require('opensubtitles-wrapper');
+var OS = require('opensubtitles-api');
 var OpenSubtitles = new OS({
     useragent:'UserAgent',
     username: 'Username',
@@ -71,7 +71,7 @@ token = "8qnesekc42g8kj1d58i6fonm61"
 ### Get in touch with OpenSubtitles.org API directly:
 
 ```js
-var OS = require('opensubtitles-wrapper');
+var OS = require('opensubtitles-api');
 var OpenSubtitles = new OS('UserAgent');
 
 OpenSubtitles.api.LogIn('username', 'password', 'en', 'UserAgent')
