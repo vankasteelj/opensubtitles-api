@@ -1,6 +1,6 @@
 {
     "name": "opensubtitles-api",
-    "version": "2.0.0",
+    "version": "2.1.0",
     "description": "nodejs opensubtitles.org api wrapper for downloading and uploading subtitles in multiple langs",
     "author": {
         "name": "vankasteelj",
@@ -20,10 +20,10 @@
         "url": "https://github.com/vankasteelj/opensubtitles-api.git"
     },
     "dependencies": {
-        "bluebird": "2.x.x",
+        "bluebird": "3.x.x",
         "lodash": "3.x.x",
         "xmlrpc": "1.x.x",
-        "URIjs": "1.x.x"
+        "urijs": "1.x.x"
     },
     "scripts": {
         "test": "node tests.js"
