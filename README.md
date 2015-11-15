@@ -142,11 +142,24 @@ Example output:
 
 ```js
 Object {
-    ar: "http://dl.opensubtitles.org/download/subtitle_file_id.srt"
-    en: "http://dl.opensubtitles.org/download/subtitle_file_id.srt"
-    fr: "http://dl.opensubtitles.org/download/subtitle_file_id.srt"
-    po: "http://dl.opensubtitles.org/download/subtitle_file_id.srt"
-    ru: "http://dl.opensubtitles.org/download/subtitle_file_id.srt"
+    en: {
+        downloads: "432",
+        encoding: "ASCII",
+        id: "192883746",
+        lang: "en",
+        langName: "English",
+        score: 9,
+        url: "http://dl.opensubtitles.org/download/subtitle_file_id.srt"
+    }
+    fr: {
+        download: "221",
+        encoding: "UTF-8",
+        id: "1992536558",
+        lang: "fr",
+        langName: "French",
+        score: 6,
+        url: "http://dl.opensubtitles.org/download/subtitle_file_id.srt"
+    }
 }
 ```
 
