@@ -51,7 +51,7 @@ OpenSubtitles.prototype.login = function() {
                         self.credentials.status = {};
                         reject(response.status || 'LogIn unknown error');
                     }
-                });
+                }).catch(reject);
         }
     });
 };
