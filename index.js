@@ -184,7 +184,6 @@ OpenSubtitles.prototype.identify = function(query) {
         .then(function(info) {
             query.moviehash = info.moviehash;
             query.moviebytesize = info.moviebytesize;
-            query.imdb = imdb;
             return self.api.CheckMovieHash(self.credentials.status.token, [query.moviehash]);
         })
         .then(function(response) {
@@ -216,4 +215,15 @@ OpenSubtitles.prototype.identify = function(query) {
                 return data;
             }
         });
+};
+
+/**
+ * Extract md5 hash from a subtitle file
+ * @param {String}          path - Mandatory, absolute path to a subtitle file
+ */
+OpenSubtitles.prototype.computeMD5 = function (path) {
+    if (!path) {
+        throw new Error('Missing path');
+    }
+    return libhash.computeMD5(path);
 };

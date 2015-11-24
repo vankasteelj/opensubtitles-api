@@ -9,6 +9,7 @@ In addition of allowing to use all available methodCalls asynchronously, it also
 - `search`: Chained function returning the best matching subtitles based on the information you can feed it.
 - `upload`: Chained function requiring only the path to the video and to the subtitle files to send new subtitles to OpenSubtitles.org (flow: LogIn > TryUploadSubtitles > UploadSubtitles)
 - `extractInfo`: Function returning Hash and Byte size for a given video
+- `computeMD5`: Function returning Hash for a given subtitle
 - `identify`: Chained function returning metadata based on video file hash
 
 *Read index.js for more info on the custom calls*
