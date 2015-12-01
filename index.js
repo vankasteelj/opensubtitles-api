@@ -112,6 +112,7 @@ OpenSubtitles.prototype.search = function(info) {
  * @param {String}|{Boolean}subtitle.hearingimpaired - Optionnal, does the subtitle have descriptions for every sound? '1' or '0', true or false
  * @param {String}|{Boolean}subtitle.automatictranslation - Optionnal, is the subtitle machine-translated? '1' or '0', true or false
  * @param {String}          subtitle.subauthorcomment - Optionnal, commentary for the uploaded subtitle
+ * @param {String}          subtitle.subtranslator - Optionnal, person who translated the subtitles
  */
 OpenSubtitles.prototype.upload = function(subtitle) {
     var self = this;

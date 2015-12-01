@@ -242,6 +242,7 @@ Optionnal parameters are self-explanatory:
 - movietimems
 - automatictranslation
 - subauthorcomment
+- subtranslator
 
 ------
 
