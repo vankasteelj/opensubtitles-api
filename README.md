@@ -99,6 +99,7 @@ Methods available through the extended `OpenSubtitles.api.<method>`call:
 - GetTranslation
 - SearchMovieOnIMDB
 - GetIMDBMovieDetails
+- GuessMovieFromString
 - InsertMovie
 - SubtitlesVote
 - GetComments
