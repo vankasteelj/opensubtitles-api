@@ -1,6 +1,6 @@
 {
     "name": "opensubtitles-api",
-    "version": "2.3.0",
+    "version": "2.4.0",
     "description": "nodejs opensubtitles.org api wrapper for downloading and uploading subtitles in multiple langs",
     "author": {
         "name": "vankasteelj",
