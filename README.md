@@ -231,7 +231,7 @@ Object {
 }
 ```
 
-*NOTE: Only `path` and `subpath` are mandatory. However, it is **highly recommended** to also provide `imdbid` to make sure you can add a subtitle even if the movie isn't already in the database.*
+*NOTE: Only `subpath` is mandatory. However, it is **highly recommended** to also provide `path` and `imdbid` to make sure you can add a subtitle even if the movie isn't already in the database.*
 
 Optionnal parameters are self-explanatory:
 
