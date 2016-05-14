@@ -135,6 +135,7 @@ OpenSubtitles.search({
     imdbid: '528809',           // 'tt528809' is fine too.
     fps: '23.96',               // Number of frames per sec in the video.
     query: 'Charlie Chaplin',   // Text-based query, this is not recommended.
+    gzip: true                  // returns url to gzipped subtitles, defaults to false
 }).then(function (subtitles) {
     // an array of objects, no duplicates (ordered by
     // matching + uploader, with total downloads as fallback)
@@ -234,17 +235,56 @@ Object {
 
 Optionnal parameters are self-explanatory:
 
-- sublanguageid
-- highdefinition
-- hearingimpaired
-- moviereleasename
-- movieaka
-- moviefps
-- movieframes
-- movietimems
-- automatictranslation
-- subauthorcomment
-- subtranslator
+- sublanguageid         // subtitle is in which language?
+- highdefinition        // is for HD versions
+- hearingimpaired       // subtitle contains written description of sounds
+- moviereleasename      // title of the release, usually the filename without extension
+- movieaka              // alternate title, for example in another language
+- moviefps              // frames par second
+- movieframes           // total number of frames in the video
+- movietimems           // total duration in milliseconds
+- automatictranslation  // the subtitle was translated by a machine, eg. Google Translate
+- subauthorcomment      // commentary from the author
+- subtranslator         // subtitle was translated by?
+- foreignpartsonly      // subtitle only contains translation for non-native language, example: only the elvish and Ork in 'The Lord of the Ring', not the english.
+
+------
+
+### Use gzipped subtitles:
+Using gzipped subtitles can reduce load on opensubtitles and enhance everyone's experience.
+
+Example: download the best matching subtitle in french, unzip it and display the subtitle.
+
+```js
+var OpenSubtitles = require('opensubtitles-api');
+var OS = new OpenSubtitles('OSTestUserAgent');
+OS.search({
+    imdbid: 'tt0314979',
+    sublanguageid: 'fre',
+    gzip: true
+}).then(function (subtitles) {
+    if (subtitles.fr) {
+        console.log('Subtitle found:', subtitles);
+        var subtitle_url = subtitles.fr.url.replace('.srt','.gz');
+        require('request')({
+            url: subtitle_url,
+            encoding: null
+        }, function (error, response, data) {
+            if (error) throw error;
+            require('zlib').unzip(data, function (error, buffer) {
+                if (error) throw error;
+                var subtitle_content = buffer.toString(subtitles.fr.encoding);
+                console.log('Subtitle content:', subtitle_content);
+            });
+        });
+    } else {
+        throw 'no subtitle found';
+    }
+}).catch(function (error) {
+    console.error(error);
+});
+```
+
 
 ------
 
