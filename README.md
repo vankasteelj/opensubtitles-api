@@ -97,6 +97,7 @@ Methods available through the extended `OpenSubtitles.api.<method>`call:
 - GetSubLanguages
 - GetAvailableTranslations
 - GetTranslation
+- GetUserInfo
 - SearchMovieOnIMDB
 - GetIMDBMovieDetails
 - GuessMovieFromString
