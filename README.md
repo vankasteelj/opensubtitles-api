@@ -51,8 +51,9 @@ var OpenSubtitles = new OS({
 
 ```js
 OpenSubtitles.login()
-    .then(function(token){
-        console.log(token);
+    .then(function(res){
+        console.log(res.token);
+        console.log(res.userinfo);
     })
     .catch(function(err){
         console.log(err);
