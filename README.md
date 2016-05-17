@@ -155,7 +155,7 @@ Object {
         lang: "en",
         langName: "English",
         score: 9,
-        url: "http://dl.opensubtitles.org/download/subtitle_file_id.srt"
+        url: "http://dl.opensubtitles.org/download/subtitle_file_id"
     }
     fr: {
         download: "221",
@@ -164,7 +164,7 @@ Object {
         lang: "fr",
         langName: "French",
         score: 6,
-        url: "http://dl.opensubtitles.org/download/subtitle_file_id.srt"
+        url: "http://dl.opensubtitles.org/download/subtitle_file_id"
     }
 }
 ```
@@ -267,9 +267,8 @@ OS.search({
 }).then(function (subtitles) {
     if (subtitles.fr) {
         console.log('Subtitle found:', subtitles);
-        var subtitle_url = subtitles.fr.url.replace('.srt','.gz');
         require('request')({
-            url: subtitle_url,
+            url: subtitles.fr.url,
             encoding: null
         }, function (error, response, data) {
             if (error) throw error;
