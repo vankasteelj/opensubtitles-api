@@ -38,7 +38,10 @@ OpenSubtitles.prototype.login = function() {
 
     return new Promise(function(resolve, reject) {
         if (self.credentials.status.auth_as === self.credentials.username && self.credentials.status.ttl > Date.now()) {
-            resolve(self.credentials.status.token);
+            resolve({
+                token: self.credentials.status.token,
+                userinfo: self.credentials.userinfo
+            });
         } else {
             self.api.LogIn(self.credentials.username, self.credentials.password, 'en', self.credentials.useragent)
                 .then(function(response) {
@@ -46,7 +49,11 @@ OpenSubtitles.prototype.login = function() {
                         self.credentials.status.ttl = Date.now() + 895000 // ~15 min;
                         self.credentials.status.token = response.token;
                         self.credentials.status.auth_as = self.credentials.username;
-                        resolve(response.token);
+                        self.credentials.userinfo = response.data;
+                        resolve({
+                            token: response.token,
+                            userinfo: response.data
+                        });
                     } else {
                         self.credentials.status = {};
                         reject(response.status || 'LogIn unknown error');

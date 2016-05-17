@@ -1,13 +1,13 @@
 {
     "name": "opensubtitles-api",
     "version": "2.4.1",
-    "description": "nodejs opensubtitles.org api wrapper for downloading and uploading subtitles in multiple langs",
+    "description": "opensubtitles.org api wrapper",
     "author": {
         "name": "vankasteelj",
         "email": "vankasteelj@gmail.com"
     },
     "main": "index.js",
-    "license": "GPL-3.0",
+    "license": "MIT",
     "keywords": [
         "opensubtitles",
         "subtitles",
