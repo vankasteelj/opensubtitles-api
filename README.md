@@ -314,7 +314,7 @@ Object {
 ```js
 OpenSubtitles.identify({
         path: 'C:\video\file.mp4',
-        extended: true
+        extend: true
     })
     .then(function (data) {
         console.log(data);
