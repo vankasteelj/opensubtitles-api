@@ -111,6 +111,7 @@ Methods available through the extended `OpenSubtitles.api.<method>`call:
 - SubscribeToHash
 - AutoUpdate
 - SuggestMovie
+- QuickSuggest
 - NoOperation
 - ServerInfo
 
