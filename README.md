@@ -20,14 +20,14 @@ In addition of allowing to use all available methodCalls asynchronously, it also
 ------
 
 ## Quick start
-
-    npm install opensubtitles-api
-
+```bash
+npm install opensubtitles-api --save
+```
 Then:
 
 ```js
-var OS = require('opensubtitles-api');
-var OpenSubtitles = new OS({
+const OS = require('opensubtitles-api');
+const OpenSubtitles = new OS({
     useragent:'UserAgent',
     username: 'Username',
     password: 'Password',
@@ -51,11 +51,11 @@ var OpenSubtitles = new OS({
 
 ```js
 OpenSubtitles.login()
-    .then(function(res){
+    .then(res => {
         console.log(res.token);
         console.log(res.userinfo);
     })
-    .catch(function(err){
+    .catch(err => {
         console.log(err);
     });
 ```
@@ -63,7 +63,7 @@ OpenSubtitles.login()
 If successful, will return:
 
 ```js
-token = "8qnesekc42g8kj1d58i6fonm61"
+token = '8qnesekc42g8kj1d58i6fonm61'
 ```
 
 *NOTE: The `login()` call is useful to verify "Username" and "Password" (if you get a token, you're authentified, as simple as that), but is never needed for the custom calls (search, upload), they're made by the module itself. If you use raw xml-rpc call (OpenSubtitles.api.methodCall), prefer to login with the raw `OpenSubtitles.api.LogIn`*
@@ -73,11 +73,13 @@ token = "8qnesekc42g8kj1d58i6fonm61"
 ### Get in touch with OpenSubtitles.org API directly:
 
 ```js
-var OS = require('opensubtitles-api');
-var OpenSubtitles = new OS('UserAgent');
+const OS = require('opensubtitles-api');
+const OpenSubtitles = new OS('UserAgent');
 
 OpenSubtitles.api.LogIn('username', 'password', 'en', 'UserAgent')
-    .then( // do stuff...
+    .then(() => {
+      // do stuff...
+    });
 ```
 
 Methods available through the extended `OpenSubtitles.api.<method>`call:
@@ -139,7 +141,7 @@ OpenSubtitles.search({
     fps: '23.96',               // Number of frames per sec in the video.
     query: 'Charlie Chaplin',   // Text-based query, this is not recommended.
     gzip: true                  // returns url to gzipped subtitles, defaults to false
-}).then(function (subtitles) {
+}).then(subtitles => {
     // an array of objects, no duplicates (ordered by
     // matching + uploader, with total downloads as fallback)
 });
@@ -216,10 +218,10 @@ OpenSubtitles.upload({
         path: '/home/user/video.avi',       // path to video file
         subpath: '/home/user/video.srt'     // path to subtitle
     })
-    .then(function(response){
+    .then(response => {
         console.log(response);
     })
-    .catch(function(err){
+    .catch(err => {
         console.log(err);
     });
 ```
@@ -259,30 +261,30 @@ Using gzipped subtitles can reduce load on opensubtitles and enhance everyone's 
 Example: download the best matching subtitle in french, unzip it and display the subtitle.
 
 ```js
-var OpenSubtitles = require('opensubtitles-api');
-var OS = new OpenSubtitles('OSTestUserAgent');
+const OpenSubtitles = require('opensubtitles-api');
+const OS = new OpenSubtitles('OSTestUserAgent');
 OS.search({
     imdbid: 'tt0314979',
     sublanguageid: 'fre',
     gzip: true
-}).then(function (subtitles) {
+}).then(subtitles => {
     if (subtitles.fr) {
         console.log('Subtitle found:', subtitles);
         require('request')({
             url: subtitles.fr.url,
             encoding: null
-        }, function (error, response, data) {
+        }, (error, response, data) => {
             if (error) throw error;
-            require('zlib').unzip(data, function (error, buffer) {
+            require('zlib').unzip(data, (error, buffer) => {
                 if (error) throw error;
-                var subtitle_content = buffer.toString(subtitles.fr.encoding);
+                const subtitle_content = buffer.toString(subtitles.fr.encoding);
                 console.log('Subtitle content:', subtitle_content);
             });
         });
     } else {
         throw 'no subtitle found';
     }
-}).catch(function (error) {
+}).catch(error => {
     console.error(error);
 });
 ```
@@ -294,7 +296,7 @@ OS.search({
 
 ```js
 OpenSubtitles.extractInfo('path/to/file.mp4')
-    .then(function (infos) {
+    .then(infos => {
         console.log(infos);
     });
 ```
@@ -317,7 +319,7 @@ OpenSubtitles.identify({
         path: 'C:\video\file.mp4',
         extend: true
     })
-    .then(function (data) {
+    .then(data => {
         console.log(data);
     });
 ```
