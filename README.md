@@ -63,7 +63,7 @@ OpenSubtitles.login()
 If successful, will return:
 
 ```js
-const token = '8qnesekc42g8kj1d58i6fonm61'
+token = '8qnesekc42g8kj1d58i6fonm61'
 ```
 
 *NOTE: The `login()` call is useful to verify "Username" and "Password" (if you get a token, you're authentified, as simple as that), but is never needed for the custom calls (search, upload), they're made by the module itself. If you use raw xml-rpc call (OpenSubtitles.api.methodCall), prefer to login with the raw `OpenSubtitles.api.LogIn`*
