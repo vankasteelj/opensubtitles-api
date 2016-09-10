@@ -1,6 +1,6 @@
 {
     "name": "opensubtitles-api",
-    "version": "3.2.0",
+    "version": "3.3.0",
     "description": "opensubtitles.org api wrapper",
     "author": {
         "name": "vankasteelj",
