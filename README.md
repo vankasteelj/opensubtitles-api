@@ -21,8 +21,9 @@ In addition of allowing to use all available methodCalls asynchronously, it also
 
 ## Quick start
 ```bash
-npm install opensubtitles-api --save
+npm install opensubtitles-api
 ```
+
 Then:
 
 ```js
@@ -60,26 +61,18 @@ OpenSubtitles.login()
     });
 ```
 
-If successful, will return:
-
-```js
-token = '8qnesekc42g8kj1d58i6fonm61'
-```
-
 *NOTE: The `login()` call is useful to verify "Username" and "Password" (if you get a token, you're authentified, as simple as that), but is never needed for the custom calls (search, upload), they're made by the module itself. If you use raw xml-rpc call (OpenSubtitles.api.methodCall), prefer to login with the raw `OpenSubtitles.api.LogIn`*
 
 ------
 
 ### Get in touch with OpenSubtitles.org API directly:
 
+Example : 
 ```js
 const OS = require('opensubtitles-api');
 const OpenSubtitles = new OS('UserAgent');
 
-OpenSubtitles.api.LogIn('username', 'password', 'en', 'UserAgent')
-    .then(() => {
-      // do stuff...
-    });
+OpenSubtitles.api.LogIn('username', 'password', 'en', 'UserAgent').then...
 ```
 
 Methods available through the extended `OpenSubtitles.api.<method>`call:
@@ -144,32 +137,30 @@ OpenSubtitles.search({
 }).then(subtitles => {
     // an array of objects, no duplicates (ordered by
     // matching + uploader, with total downloads as fallback)
+
+    subtitles = Object {
+        en: {
+            downloads: "432",
+            encoding: "ASCII",
+            id: "192883746",
+            lang: "en",
+            langName: "English",
+            score: 9,
+            url: "http://dl.opensubtitles.org/download/subtitle_file_id",
+            filename: "some_movie.tag.srt"
+        }
+        fr: {
+            download: "221",
+            encoding: "UTF-8",
+            id: "1992536558",
+            lang: "fr",
+            langName: "French",
+            score: 6,
+            url: "http://dl.opensubtitles.org/download/subtitle_file_id",
+            filename: "some_movie.tag.srt"
+        }
+    }
 });
-```
-
-Example output:
-
-```js
-Object {
-    en: {
-        downloads: "432",
-        encoding: "ASCII",
-        id: "192883746",
-        lang: "en",
-        langName: "English",
-        score: 9,
-        url: "http://dl.opensubtitles.org/download/subtitle_file_id"
-    }
-    fr: {
-        download: "221",
-        encoding: "UTF-8",
-        id: "1992536558",
-        lang: "fr",
-        langName: "French",
-        score: 6,
-        url: "http://dl.opensubtitles.org/download/subtitle_file_id"
-    }
-}
 ```
 
 *NOTE: No parameter is mandatory, but at least one is required. The more possibilities you add, the best is your chance to get the best matching subtitles in a large variation of languages.*
@@ -218,22 +209,14 @@ OpenSubtitles.upload({
         path: '/home/user/video.avi',       // path to video file
         subpath: '/home/user/video.srt'     // path to subtitle
     })
-    .then(response => {
-        console.log(response);
+    .then(status => {
+        status = Object {
+            status: '200 OK'
+            data: 'http://www.opensubtitles.org/subtitles/123456' //absolute link to subtitles
+            seconds: '1.171'
+        }
     })
-    .catch(err => {
-        console.log(err);
-    });
-```
-
-Example output (if successfully uploaded):
-
-```js
-Object {
-    status: '200 OK'
-    data: 'http://www.opensubtitles.org/subtitles/123456' //absolute link to subtitles
-    seconds: '1.171'
-}
+    .catch(console.error);
 ```
 
 *NOTE: Only `subpath` is mandatory. However, it is **highly recommended** to also provide `path` and `imdbid` to make sure you can add a subtitle even if the movie isn't already in the database.*
@@ -284,9 +267,7 @@ OS.search({
     } else {
         throw 'no subtitle found';
     }
-}).catch(error => {
-    console.error(error);
-});
+}).catch(console.error);
 ```
 
 
@@ -297,17 +278,11 @@ OS.search({
 ```js
 OpenSubtitles.extractInfo('path/to/file.mp4')
     .then(infos => {
-        console.log(infos);
+        infos = Object {
+            moviehash: 'b6e2dab8fc092977'
+            moviebytesize: '424954701'
+        }
     });
-```
-
-Example output: 
-
-```js
-Object {
-    moviehash: 'b6e2dab8fc092977'
-    moviebytesize: '424954701'
-}
 ```
 
 ------
@@ -320,33 +295,27 @@ OpenSubtitles.identify({
         extend: true
     })
     .then(data => {
-        console.log(data);
-    });
-```
-
-Example output:
-
-```js
-Object {
-    added: false
-    metadata: Object {
-        cast: Object {}
-        country: Array[1]
-        cover: "http://link-to-image/pic.jpg"
-        directors: Object {}
-        duration: "82 min"
-        genres: Array[4]
-        imdbid: "tt0997518"
-        rating: "6.5"
-        synopsys: "This is the story about a man sitting in his appartment"
-        title: "Potiche"
-        year: "2006"
+        data = Object {
+            added: false
+            metadata: Object {
+                cast: Object {}
+                country: Array[1]
+                cover: "http://link-to-image/pic.jpg"
+                directors: Object {}
+                duration: "82 min"
+                genres: Array[4]
+                imdbid: "tt0997518"
+                rating: "6.5"
+                synopsys: "the story about a man sitting in his appartment"
+                title: "Potiche"
+                year: "2006"
+            }
+            moviebytesize: "518064188"
+            moviehash: "a91cf276aaa6bf20"
+            subcount: "38"
+            type: "movie"
+        }
     }
-    moviebytesize: "518064188"
-    moviehash: "a91cf276aaa6bf20"
-    subcount: "38"
-    type: "movie"
-}
 ```
 
 ------
