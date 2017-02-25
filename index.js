@@ -3,7 +3,6 @@ const libhash = require('./lib/hash.js')
 const libsearch = require('./lib/search.js')
 const libupload = require('./lib/upload.js')
 const libid = require('./lib/identify.js')
-const Promise = require('bluebird')
 
 module.exports = class OpenSubtitles {
 
@@ -36,35 +35,27 @@ module.exports = class OpenSubtitles {
      * Log-in as user or anonymously, returns a token
      */
     login() {
-        return new Promise((resolve, reject) => {
-            if (this.credentials.status.auth_as === this.credentials.username && this.credentials.status.ttl > Date.now()) {
-                return resolve({
-                    token: this.credentials.status.token,
-                    userinfo: this.credentials.userinfo
-                })
+        if (this.credentials.status.auth_as === this.credentials.username && this.credentials.status.ttl > Date.now()) {
+            return Promise.resolve({
+                token: this.credentials.status.token,
+                userinfo: this.credentials.userinfo
+            })
+        }
+
+        return this.api.LogIn(this.credentials.username, this.credentials.password, 'en', this.credentials.useragent).then(response => {
+            if (response.token && (response.status && response.status.match(/200/))) {
+                this.credentials.status.ttl = Date.now() + 895000 // ~15 min
+                this.credentials.status.token = response.token
+                this.credentials.status.auth_as = this.credentials.username
+                this.credentials.userinfo = response.data
+                return {
+                    token: response.token,
+                    userinfo: response.data
+                }
             }
 
-            this.api.LogIn(
-                this.credentials.username, 
-                this.credentials.password, 
-                'en', 
-                this.credentials.useragent
-            ).then(response => {
-                    if (response.token && (response.status && response.status.match(/200/))) {
-                        this.credentials.status.ttl = Date.now() + 895000 // ~15 min
-                        this.credentials.status.token = response.token
-                        this.credentials.status.auth_as = this.credentials.username
-                        this.credentials.userinfo = response.data
-                        return resolve({
-                            token: response.token,
-                            userinfo: response.data
-                        })
-                    }
-
-                    this.credentials.status = this.credentials.userinfo = Object()
-                    throw Error(response.status || 'LogIn unknown error')
-
-                }).catch(reject)
+            this.credentials.status = this.credentials.userinfo = Object()
+            throw Error(response.status || 'LogIn unknown error')
         })
     }
 
@@ -90,11 +81,10 @@ module.exports = class OpenSubtitles {
 
         return this.login()
             .then(() => libsearch.optimizeQueryTerms(info))
-            .map(optimizedQT => {
-                return this.api.SearchSubtitles(this.credentials.status.token, [optimizedQT])
-            })
-            .each(result => {
-                subs = subs.concat(result.data)
+            .then(optimizedQT => {
+                return Promise.all(optimizedQT.map(op => {
+                    return this.api.SearchSubtitles(this.credentials.status.token, [op]).then(result => subs = subs.concat(result.data))
+                }))
             })
             .then(() => libsearch.optimizeSubs(subs, info))
             .then(list => libsearch.filter(list, info))

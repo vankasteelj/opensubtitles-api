@@ -20,7 +20,6 @@
         "url": "https://github.com/vankasteelj/opensubtitles-api.git"
     },
     "dependencies": {
-        "bluebird": "3.x.x",
         "xmlrpc": "1.x.x",
         "urijs": "1.x.x"
     },
