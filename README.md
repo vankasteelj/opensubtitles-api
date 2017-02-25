@@ -1,20 +1,19 @@
 # opensubtitles-api
 
-**[OpenSubtitles.org](http://www.opensubtitles.org/) api wrapper for downloading and uploading subtitles, written in NodeJS.**
-
-Based on Promises and thus working asynchronously (thanks to Bluebird), this module uses XML-RPC (thanks to xmlrpc) to communicate with [OpenSubtitles](http://www.opensubtitles.org/) using Node.js
+**[OpenSubtitles.org](http://www.opensubtitles.org/) API wrapper for downloading and uploading subtitles, helping to communicate with the OpenSubtitles XML-RPC API using Node.js**
 
 In addition of allowing to use all available methodCalls asynchronously, it also allows you to directly use powerfull custom calls, like: 
 
 - `search`: Chained function returning the best matching subtitles based on the information you can feed it.
 - `upload`: Chained function requiring only the path to the video and to the subtitle files to send new subtitles to OpenSubtitles.org (flow: LogIn > TryUploadSubtitles > UploadSubtitles)
-- `extractInfo`: Function returning Hash and Byte size for a given video
-- `computeMD5`: Function returning Hash for a given subtitle
+- `hash`: Function returning Hash and Byte size for a given video
+- `md5`: Function returning Hash for a given subtitle
 - `identify`: Chained function returning metadata based on video file hash
 
-*Read index.js for more info on the custom calls*
+*Read index.js for more info on the custom calls.*
 
 *More complete [docs](http://trac.opensubtitles.org/projects/opensubtitles) are available.*
+
 *This module requires a [valid UserAgent](http://trac.opensubtitles.org/projects/opensubtitles/wiki/DevReadFirst).*
 
 ------
@@ -276,7 +275,7 @@ OS.search({
 ### Extract Hash & MovieByteSize
 
 ```js
-OpenSubtitles.extractInfo('path/to/file.mp4')
+OpenSubtitles.hash('path/to/file.mp4')
     .then(infos => {
         infos = Object {
             moviehash: 'b6e2dab8fc092977'
@@ -320,15 +319,15 @@ OpenSubtitles.identify({
 
 ------
 
-### Extra notes:
-If you're logging in anonymously by default and wanna update the module with a username/password for the future, just throw in a new `new OpenSubtitle({})` with the right object. Same thing to switch endpoint or http/https.
+### Notes:
+If you're logging in anonymously by default and want to update the module with a username/password for the future, just throw in a new `new OpenSubtitle({})` with the right object. Same thing to switch endpoint or http/https.
 
 ------
 
 
 ## License
 The MIT License (MIT)
-- Copyright (c) 2015-2016 Jean van Kasteel <vankasteelj@gmail.com>
+- Copyright (c) 2015-2017 Jean van Kasteel <vankasteelj@gmail.com>
 
 >Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 >
