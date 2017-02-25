@@ -1,9 +1,8 @@
-var OS = require('./index.js')
-var UA = 'OSTestUserAgentTemp'
-var imdb = '0898266', show = 'The Big Bang Theory', s = '01', ep = '01'
-var hash = '8e2264d390e150a9'
+const OS = require('./index.js')
+const UA = 'OSTestUserAgentTemp'
+const imdb = '0898266', show = 'The Big Bang Theory', s = '01', ep = '01'
 
-var os, test
+let os, test
 
 test = 'http client'
 os = new OS({
