@@ -162,7 +162,7 @@ OpenSubtitles.prototype.upload = function(subtitle) {
  * Extract Movie Hash & Movie Bytes Size from a video
  * @param {String}          path - Mandatory, absolute path to a video file
  */
-OpenSubtitles.prototype.extractInfo = function(path) {
+OpenSubtitles.prototype.hash = function(path) {
     if (!path) {
         throw new Error('Missing path');
     }
@@ -229,7 +229,7 @@ OpenSubtitles.prototype.identify = function(query) {
  * Extract md5 hash from a subtitle file
  * @param {String}          path - Mandatory, absolute path to a subtitle file
  */
-OpenSubtitles.prototype.computeMD5 = function (path) {
+OpenSubtitles.prototype.md5 = function (path) {
     if (!path) {
         throw new Error('Missing path');
     }
