@@ -148,8 +148,8 @@ module.exports = class OpenSubtitles {
 
     /**
      * Movie identification service, get imdb information, send moviehashes
-     * @param {Object}          
-     * 
+     * @param {Object}
+     *
      * @param {String}          path - Mandatory, absolute path to a video file
      * @param {String}          imdb - Optionnal, matching imdb id
      * @param {Boolean}         extend - Optionnal, fetches metadata from OpenSubtitles
@@ -159,7 +159,7 @@ module.exports = class OpenSubtitles {
         if (!query.path) query = {path: query}
 
         return this.login()
-            .then(() => this.extractInfo(query.path))
+            .then(() => this.hash(query.path))
             .then(info => {
                 query.moviehash = info.moviehash
                 query.moviebytesize = info.moviebytesize
