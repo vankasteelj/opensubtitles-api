@@ -1,5 +1,5 @@
 const OS = require('./index.js')
-const UA = 'OSTestUserAgentTemp'
+const UA = 'TemporaryUserAgent'
 const imdb = '0898266', show = 'The Big Bang Theory', s = '01', ep = '01'
 
 let os, test
