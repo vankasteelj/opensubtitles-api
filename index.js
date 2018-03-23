@@ -83,7 +83,9 @@ module.exports = class OpenSubtitles {
             .then(() => libsearch.optimizeQueryTerms(info))
             .then(optimizedQT => {
                 return Promise.all(optimizedQT.map(op => {
-                    return this.api.SearchSubtitles(this.credentials.status.token, [op]).then(result => subs = subs.concat(result.data))
+                    return this.api.SearchSubtitles(this.credentials.status.token, [op]).then(result => {
+                        subs = subs.concat(Object.values(result.data))
+                    })
                 }))
             })
             .then(() => libsearch.optimizeSubs(subs, info))
