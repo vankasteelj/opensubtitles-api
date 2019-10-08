@@ -155,7 +155,7 @@ module.exports = class OpenSubtitles {
      * @param {Boolean}         extend - Optionnal, fetches metadata from OpenSubtitles
      */
     identify(query) {
-        if (!query) throw Error('Missing query')
+        if (!query) throw Error('Missing path')
         if (!query.path) query = {path: query}
 
         return this.login()
