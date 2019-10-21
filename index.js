@@ -139,7 +139,9 @@ module.exports = class OpenSubtitles {
 
     /**
      * Extract Movie Hash & Movie Bytes Size from a video
-     * @param {String}          path - Mandatory, absolute path to a video file
+     *
+     * @param {String} path - Absolute path to a video file
+     * @returns {Object} - An object containing moviebytesize and moviehash
      */
     hash(path) {
         if (!path) throw Error('Missing path')
@@ -148,18 +150,28 @@ module.exports = class OpenSubtitles {
 
     /**
      * Movie identification service, get imdb information, send moviehashes
-     * @param {Object}
      *
-     * @param {String}          path - Mandatory, absolute path to a video file
-     * @param {String}          imdb - Optionnal, matching imdb id
-     * @param {Boolean}         extend - Optionnal, fetches metadata from OpenSubtitles
+     * @param {Object}  query
+     * @param {String}  query.path - Absolute path to a video file
+     * @param {Boolean} [query.extend] - Fetches metadata from OpenSubtitles
+     * @param {String}  [query.imdb] - Matching IMDb id
+     * @param {Number}  [query.moviebytesize] - Filesize in bytes
+     * @param {String}  [query.moviehash] - OSDb hash
      */
     identify(query) {
         if (!query) throw Error('Missing path')
         if (!query.path) query = {path: query}
 
         return this.login()
-            .then(() => this.hash(query.path))
+            .then(() => {
+                if (query.moviehash && query.moviebytesize) {
+                    return {
+                        moviebytesize: query.moviebytesize,
+                        moviehash: query.moviehash
+                    }
+                }
+                return this.hash(query.path)
+            })
             .then(info => {
                 query.moviehash = info.moviehash
                 query.moviebytesize = info.moviebytesize
@@ -183,7 +195,8 @@ module.exports = class OpenSubtitles {
             .then(response => libid.parseResponse(response, query))
             .then(data => {
                 if (data.metadata && data.metadata.imdbid && query.extend) {
-                    return this.api.GetIMDBMovieDetails(this.credentials.status.token, data.metadata.imdbid.replace('tt', '')).then(ext => libid.extend(data, ext))
+                    return this.api.GetIMDBMovieDetails(this.credentials.status.token, data.metadata.imdbid.replace('tt', ''))
+                        .then(ext => libid.extend(data, ext))
                 } else {
                     return data
                 }
