@@ -160,7 +160,7 @@ module.exports = class OpenSubtitles {
      */
     identify(query) {
         if (!query) throw Error('Missing path')
-        if (!query.path) query = {path: query}
+        if (!query.path && !query.moviehash && !query.moviebytesize) query = {path: query}
 
         return this.login()
             .then(() => {
