@@ -1,4 +1,5 @@
 const OS = require('./index.js');
+const assert = require('assert');
 const UA = 'TemporaryUserAgent';
 const imdb = '0898266', show = 'The Big Bang Theory', s = '01', ep = '01';
 
@@ -32,9 +33,20 @@ os.api.ServerInfo().then(() => {
         limit: 'all'
     });
 }).then(() => {
+    test = 'identify';
+    console.time(test);
+    return os.identify({
+        moviehash: '8e245d9679d31e12',
+        moviebytesize: 1234,
+        extend: true,
+    });
+}).then((res) => {
     console.timeEnd(test);
+    assert.equal(res.metadata.title, 'The Simpsons Movie');
     console.log('Passed test.');
+    process.exit(0);
 }).catch((err) => {
     console.log('Test failed');
     console.log(err);
+    process.exit(1);
 });
