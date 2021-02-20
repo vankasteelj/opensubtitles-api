@@ -1,37 +1,118 @@
 {
-    "/link/to/get": {
-        "opts": {
-            "auth": true,
-            "extended": ["full"]
-        },
-        "method": "GET",
-        "url": "/calendars/my/shows/:start_date/:days",
-        "optional": ["start_date", "days"]
+  "/infos/formats": {
+    "method": "GET",
+    "url": "/infos/formats"
+  },
+  "/infos/languages": {
+    "method": "GET",
+    "url": "/infos/languages"
+  },
+  "/infos/user": {
+    "auth": true,
+    "method": "GET",
+    "url": "/infos/user"
+  },
+
+  "/login": {
+    "method": "POST",
+    "url": "/login",
+    "body": {
+      "username": null,
+      "password": null
     },
-    "/link/to/post": {
-        "opts": {
-            "auth": true
-        },
-        "method": "POST",
-        "url": "/checkin",
-        "body": {
-            "movie": null,
-            "episode": null,
-            "sharing": null,
-            "message": null,
-            "venue_id": null,
-            "venue_name": null,
-            "app_version": null,
-            "app_date": null
-        },
-        "optional": []
-    },
-    "/link/to/delete": {
-        "opts": {
-            "auth": true
-        },
-        "method": "DELETE",
-        "url": "/checkin",
-        "optional": []
+    "headers": {
+      "Content-Type": "multipart/form-data"
     }
+  },
+  "/logout": {
+    "auth": true,
+    "method": "DELETE",
+    "url": "/logout"
+  },
+
+  "/discover/latest": {
+    "method": "GET",
+    "url": "/discover/latest?languages=&type=",
+    "optional": ["languages", "type"]
+  },
+  "/discover/most_downloaded": {
+    "method": "GET",
+    "url": "/discover/most_downloaded?languages=&type=",
+    "optional": ["languages", "type"]
+  },
+  "/discover/popular": {
+    "method": "GET",
+    "url": "/discover/popular?languages=&type=",
+    "optional": ["languages", "type"]
+  },
+
+  "/download": {
+    "auth": true,
+    "method": "POST",
+    "url": "/download",
+    "body": {
+      "file_id": null,
+      "sub_format": null,
+      "file_name": null,
+      "strip_html": null,
+      "cleanup_links": null,
+      "remove_adds": null,
+      "in_fps": null,
+      "out_fps": null,
+      "timeshift": null
+    },
+    "headers": {
+      "Content-Type": "multipart/form-data"
+    }
+  },
+
+  "/subtitles": {
+    "method": "GET",
+    "url": "/subtitles?ai_translated=&episode_number=&foreign_parts_only=&hearing_impaired=&id=&imdb_id=&languages=&machine_translated=&moviehash=&order_by=&order_direction=&parent_feature_id=&parent_imdb_id=&parent_tmdb_id=&query=&season_number=&tmdb_id=&trusted_sources&type=&user_id=&year=",
+    "optional": ["ai_translated", "episode_number", "foreign_parts_only", "hearing_impaired", "id", "imdb_id", "languages", "machine_translated", "moviehash", "order_by", "order_direction", "parent_feature_id", "parent_imdb_id", "parent_tmdb_id", "query", "season_number", "tmdb_id", "trusted_sources", "type", "user_id", "year"]
+  },
+
+  "/features": {
+    "method": "GET",
+    "url": "/features?query=&feature_id=&imdb_id=&tmdb_id=&type=&year=",
+    "optional": ["feature_id", "imdb_id", "tmdb_id", "type", "year"]
+  },
+
+
+
+  "/link/to/get": {
+    "opts": {
+      "auth": true,
+      "extended": ["full"]
+    },
+    "method": "GET",
+    "url": "/calendars/my/shows/:start_date/:days",
+    "optional": ["start_date", "days"]
+  },
+  "/link/to/post": {
+    "opts": {
+      "auth": true
+    },
+    "method": "POST",
+    "url": "/checkin",
+    "body": {
+      "movie": null,
+      "episode": null,
+      "sharing": null,
+      "message": null,
+      "venue_id": null,
+      "venue_name": null,
+      "app_version": null,
+      "app_date": null
+    },
+    "optional": []
+  },
+  "/link/to/delete": {
+    "opts": {
+      "auth": true
+    },
+    "method": "DELETE",
+    "url": "/checkin",
+    "optional": []
+  },
 }
