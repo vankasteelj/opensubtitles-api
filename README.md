@@ -1,6 +1,6 @@
 # opensubtitles-api
 
-**[OpenSubtitles.org](http://www.opensubtitles.org/) API wrapper for downloading and uploading subtitles, helping to communicate with the OpenSubtitles XML-RPC API using Node.js**
+**[OpenSubtitles.org](http://www.opensubtitles.org/) XML API wrapper for downloading and uploading subtitles, helping to communicate with the OpenSubtitles XML-RPC API using Node.js**
 
 In addition of allowing to use all available methodCalls asynchronously, it also allows you to directly use powerfull custom calls, like: 
 
@@ -35,7 +35,7 @@ const OpenSubtitles = new OS({
 });
 ```
 
-*You can omit username and password to use OpenSubtitles.org anonymously (not all methods are available)*
+*You can omit username and password to use OpenSubtitles.org anonymously (but as of april 04, 2020, you can [no longer use the API without logging-in](https://forum.opensubtitles.org/viewtopic.php?f=11&t=17110)). OpenSubtitles' operators state: "if somebody needs to use it for non-logged in, they can contact us for pricing."*
 
 *You can omit the endpoint to use HTTP default OpenSubtitles API endpoint: http://api.opensubtitles.org:80/xml-rpc*
 
@@ -327,7 +327,7 @@ If you're logging in anonymously by default and want to update the module with a
 
 ## License
 The MIT License (MIT)
-- Copyright (c) 2015-2017 Jean van Kasteel <vankasteelj@gmail.com>
+- Copyright (c) 2015 Jean van Kasteel <vankasteelj@gmail.com>
 
 >Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 >
