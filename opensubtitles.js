@@ -2,6 +2,7 @@
 
 // requirejs modules
 const got = require('got')
+const FormData = require('form-data')
 const methods = require('./methods.json')
 const pkg = require('./package.json')
 
@@ -29,14 +30,14 @@ module.exports = class OpenSubtitles {
   _construct() {
     for (let url in methods) {
       const urlParts = url.split('/')
-      const name = urlParts.pop() // key for function
+      const urlName = urlParts.pop() // key for function
 
       let tmp = this
       for (let p = 1; p < urlParts.length; ++p) { // acts like mkdir -p
         tmp = tmp[urlParts[p]] || (tmp[urlParts[p]] = {})
       }
 
-      tmp[name] = (() => {
+      tmp[urlName] = (() => {
         const method = methods[url] // closure forces copy
         return (params) => {
             return this._call(method, params)
@@ -48,9 +49,7 @@ module.exports = class OpenSubtitles {
   }
 
   // Parse url before api call
-  _parse(method, params) {
-    if (!params) params = {}
-
+  _parse(method, params = {}) {
     const queryParts = []
     const pathParts = []
 
@@ -59,9 +58,11 @@ module.exports = class OpenSubtitles {
     if (queryPart) {
       const queryParams = queryPart.split('&')
       for (let i in queryParams) {
-        const name = queryParams[i].split('=')[0]
-        (params[name] || params[name] === 0) && queryParts.push(`${name}=${encodeURIComponent(params[name])}`)
-      }
+        const queryName = queryParams[i].split('=')[0]
+        if (params[queryName] || params[queryName] === 0) {
+          queryParts.push(`${queryName}=${encodeURIComponent(params[queryName])}`)
+        }
+      }        
     }
 
     // /part
@@ -88,7 +89,7 @@ module.exports = class OpenSubtitles {
     ].join('')
   }
 
-  // Parse methods then hit trakt
+  // Parse methods then hit opensubtitles
   _call(method, params) {
     if (method['auth'] === true && (!this._authentication.access_token)) throw Error('User authentication required')
 
@@ -97,13 +98,13 @@ module.exports = class OpenSubtitles {
       url: this._parse(method, params),
       headers: {
         'User-Agent': this._settings.useragent,
-        'Content-Type': method['Content-Type'] || 'application/json',
+        'Content-Type': method.headers && method.headers['Content-Type'] || 'application/json',
         'Api-Key': this._settings.api_key
       },
       body: (method.body ? Object.assign({}, method.body) : {})
     }
 
-    if (method.opts['auth'] && this._authentication.access_token) req.headers['Authorization'] = `Bearer ${this._authentication.access_token}`
+    if (method['auth'] && this._authentication.access_token) req.headers['Authorization'] = `Bearer ${this._authentication.access_token}`
 
     for (let k in params) {
       if (k in req.body) req.body[k] = params[k]
@@ -115,17 +116,33 @@ module.exports = class OpenSubtitles {
     if (method.method === 'GET') {
       delete req.body
     } else {
-      req.body = JSON.stringify(req.body)
+      if (method.headers && method.headers['Content-Type'] && method.headers['Content-Type'] === 'multipart/form-data') {
+        let form = new FormData()
+        for (let n in req.body) {
+          form.append(n, req.body[n])
+        }
+        req.body = form
+      } else {
+        req.body = JSON.stringify(req.body)
+      }
     }
 
     this._debug(req)
-    return got(req)
+    console.log('REQUEST', req)
+    return got(req).then(response => this._parseResponse(method, params, response))
+  }
+
+  _parseResponse (method, params, response) {
+    if (!response.body) return response.body;
+
+    if (method.url === '/login') this._authentication.access_token = JSON.parse(response.body).token
+    if (method.url === '/logout') delete this._authentication.access_token
+
+    return JSON.parse(response.body);
   }
 
   // Debug & Print
   _debug(req) {
     this._settings.debug && console.log(req.method ? `${req.method}: ${req.url}` : req)
   }
-
-  login() {}
 }
