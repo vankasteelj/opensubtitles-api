@@ -1,0 +1,37 @@
+{
+    "/link/to/get": {
+        "opts": {
+            "auth": true,
+            "extended": ["full"]
+        },
+        "method": "GET",
+        "url": "/calendars/my/shows/:start_date/:days",
+        "optional": ["start_date", "days"]
+    },
+    "/link/to/post": {
+        "opts": {
+            "auth": true
+        },
+        "method": "POST",
+        "url": "/checkin",
+        "body": {
+            "movie": null,
+            "episode": null,
+            "sharing": null,
+            "message": null,
+            "venue_id": null,
+            "venue_name": null,
+            "app_version": null,
+            "app_date": null
+        },
+        "optional": []
+    },
+    "/link/to/delete": {
+        "opts": {
+            "auth": true
+        },
+        "method": "DELETE",
+        "url": "/checkin",
+        "optional": []
+    }
+}
