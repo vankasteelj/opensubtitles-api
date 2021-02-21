@@ -116,15 +116,7 @@ module.exports = class OpenSubtitles {
     if (method.method === 'GET') {
       delete req.body
     } else {
-      if (method.headers && method.headers['Content-Type'] && method.headers['Content-Type'] === 'multipart/form-data') {
-        let form = new FormData()
-        for (let n in req.body) {
-          form.append(n, req.body[n])
-        }
-        req.body = form
-      } else {
-        req.body = JSON.stringify(req.body)
-      }
+      req.body = JSON.stringify(req.body)
     }
 
     this._debug(req)

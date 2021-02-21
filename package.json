@@ -21,7 +21,6 @@
     "url": "https://github.com/vankasteelj/opensubtitles-api.git"
   },
   "dependencies": {
-    "form-data": "^4.0.0",
     "got": "^11.8.1"
   }
 }

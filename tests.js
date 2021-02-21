@@ -45,4 +45,4 @@ return osapi.discover.latest().then(response => {
 }).then(response => {
   console.log('Logged out. Session destroyed.')
   console.log('Test done')
-}).catch(console.error)
+}).catch(error => console.error(error))
