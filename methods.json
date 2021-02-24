@@ -57,9 +57,6 @@
       "in_fps": null,
       "out_fps": null,
       "timeshift": null
-    },
-    "headers": {
-      "Content-Type": "multipart/form-data"
     }
   },
 

@@ -98,7 +98,8 @@ module.exports = class OpenSubtitles {
       url: this._parse(method, params),
       headers: {
         'User-Agent': this._settings.useragent,
-        'Content-Type': method.headers && method.headers['Content-Type'] || 'application/json',
+        'Content-Type': 'application/json',
+        'Accept': '*/*',
         'Api-Key': this._settings.api_key
       },
       body: (method.body ? Object.assign({}, method.body) : {})
