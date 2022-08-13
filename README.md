@@ -1,5 +1,7 @@
 # opensubtitles-api
 
+> # DEPRECATION NOTICE: the XML-RPC api [will be deprecated on 2023-12-31](https://forum.opensubtitles.org/viewtopic.php?f=11&t=17930). Registration of new useragents already is disabled as of june 2022. An alternative module for Opensubtitles.com is developed at https://github.com/vankasteelj/opensubtitles.com
+
 **[OpenSubtitles.org](http://www.opensubtitles.org/) XML API wrapper for downloading and uploading subtitles, helping to communicate with the OpenSubtitles XML-RPC API using Node.js**
 
 In addition of allowing to use all available methodCalls asynchronously, it also allows you to directly use powerfull custom calls, like: 
